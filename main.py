@@ -10,16 +10,28 @@ def main():
     if choice == 1:
         word = input("Enter English word ")
         findEntry(connection, word)
-    elif choice == 2:   
-        addWord(connection, word)
+    elif choice == 2:
+        Gword = input("Enter Garhwali Word")
+        Hword = input("Enter Hindi Word")
+        Eword = input("Enter English Word")   
+        addWord(connection, Gword, Hword, Eword)
     elif choice == 3:
         removeEntry(connection)
     else:
         print("Error. You entered a wrong choice")    
     
 
-def addWord(connection):
+def addWord(connection, Gword, Hword, Eword):
     cursor = connection.cursor()
+    
+    query = "INSERT INTO dictionary(Garhwali_Word, Hindi_Word, English_Word) VALUES (%s, %s, %s)"
+    
+    cursor.execute(query, (Gword, Hword, Eword))
+    
+    connection.commit()
+    print("Word added successfully")
+    
+    cursor.close()
     
 def findEntry(connection, word):
     cursor = connection.cursor()
@@ -32,6 +44,8 @@ def findEntry(connection, word):
     
     for row in output:
         print(f"Hindi_word: {row[2]}, Garhwali_word: {row[1]}")
+    
+    cursor.close()
 
 def removeEntry(connection):
     cursor = connection.cursor()
