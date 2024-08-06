@@ -1,10 +1,39 @@
-import mysql
+import mysql.connector
+from mysql.connector import Error
 
-
-
+    
 
 def main():
-    number = int(input("Enter word"))
+    
+    try:
+        conn = mysql.connector.connect(
+            host = 'localhost',
+            user = 'root',
+            password = 'Aryu@118',
+            database = 'Garhwali_Dict'
+        )
+
+        if conn.is_connected():
+            print("Connected to mySQL database")
+        
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM dictionary")
+        rows = cursor.fetchall()
+    
+        for r in rows:
+            print(f"Garhwali: {r[1]}, Hindi: {r[2]}, English: {r[3]}")
+    
+
+    except Error as e :
+        print(f"Error: {e}")   
+        
+    finally:
+        if cursor:
+            cursor.close()
+        
+        if conn and conn.is_connected():
+            conn.close()
+             
 
 def addWord():
     num = 0
