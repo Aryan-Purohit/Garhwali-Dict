@@ -1,10 +1,24 @@
 import mysql.connector
 from mysql.connector import Error
 
-    
 
 def main():
     
+    choice = int(input("Enter your input.\n1. Find\n2. Add word\n3. Remove\n"))
+    
+    if choice == 1:
+        findEntry()
+    elif choice == 2:
+        addWord()
+    elif choice == 3:
+        removeEntry()
+    else:
+        print("Error. You entered a wrong choice")       
+
+def addWord():
+    num = 0
+    
+def findEntry():
     try:
         conn = mysql.connector.connect(
             host = 'localhost',
@@ -33,18 +47,10 @@ def main():
         
         if conn and conn.is_connected():
             conn.close()
-             
-
-def addWord():
-    num = 0
-    
-def findEntry():
-    n = 0
 
 def removeEntry():
     nu = 0
 
 if __name__ == "__main__":
     main()
-
 
