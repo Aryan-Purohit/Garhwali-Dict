@@ -5,21 +5,22 @@ from mysql.connector import Error
 def main():
     
     connection = create_connection()
-    choice = int(input("Enter your input.\n1. Find\n2. Add word\n3. Remove\n"))
+    if connection:
+        choice = int(input("Enter your input.\n1. Find\n2. Add word\n3. Remove\n"))
     
-    if choice == 1:
-        word = input("Enter English word ")
-        findEntry(connection, word)
-    elif choice == 2:
-        Gword = input("Enter Garhwali Word")
-        Hword = input("Enter Hindi Word")
-        Eword = input("Enter English Word")   
-        addWord(connection, Gword, Hword, Eword)
-    elif choice == 3:
-        Rword = input("Enter Entry to be removed")
-        removeEntry(connection, Rword)
-    else:
-        print("Error. You entered a wrong choice")    
+        if choice == 1:
+            word = input("Enter English word ")
+            findEntry(connection, word)
+        elif choice == 2:
+            Gword = input("Enter Garhwali Word")
+            Hword = input("Enter Hindi Word")
+            Eword = input("Enter English Word")   
+            addWord(connection, Gword, Hword, Eword)
+        elif choice == 3:
+            Rword = input("Enter Entry to be removed")
+            removeEntry(connection, Rword)
+        else:
+            print("Error. You entered a wrong choice")    
     
 
 def addWord(connection, Gword, Hword, Eword):
