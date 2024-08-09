@@ -16,7 +16,8 @@ def main():
         Eword = input("Enter English Word")   
         addWord(connection, Gword, Hword, Eword)
     elif choice == 3:
-        removeEntry(connection)
+        Rword = input("Enter Entry to be removed")
+        removeEntry(connection, Rword)
     else:
         print("Error. You entered a wrong choice")    
     
@@ -35,8 +36,7 @@ def addWord(connection, Gword, Hword, Eword):
     
 def findEntry(connection, word):
     cursor = connection.cursor()
-    
-    
+     
     query = "SELECT * FROM dictionary WHERE English_word = %s"
     cursor.execute(query, (word,))
     
@@ -47,8 +47,16 @@ def findEntry(connection, word):
     
     cursor.close()
 
-def removeEntry(connection):
+def removeEntry(connection, Rword):
     cursor = connection.cursor()
+    
+    query = "DELETE FROM dictionary WHERE English_word = %s"
+    
+    cursor.execute(query, (Rword,))
+    
+    connection.commit()
+    
+    print("Entry removed successfully")
  
 #Establishes the connection to SQL database    
 def create_connection():
