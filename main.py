@@ -6,7 +6,7 @@ def main():
     
     connection = create_connection()
     if connection:
-        choice = int(input("Enter your input.\n1. Find\n2. Add word\n3. Remove\n"))
+        choice = int(input("Enter your input.\n1. Find\n2. Add word\n3. Remove\n4. Show all entries\n"))
     
         if choice == 1:
             word = input("Enter English word ")
@@ -19,6 +19,8 @@ def main():
         elif choice == 3:
             Rword = input("Enter Entry to be removed")
             removeEntry(connection, Rword)
+        elif choice == 4:
+            showAllEntries(connection)
         else:
             print("Error. You entered a wrong choice")    
     
@@ -58,6 +60,16 @@ def removeEntry(connection, Rword):
     connection.commit()
     
     print("Entry removed successfully")
+    
+def showAllEntries(connection):
+    cursor = connection.cursor()
+    query = "SELECT * FROM dictionary"
+    cursor.execute(query)
+    output = cursor.fetchall()
+    print("\nAll Dictionary Entries:")
+    for row in output:
+        print(f"Garhwali: {row[1]}, Hindi: {row[2]}, English: {row[3]}")
+    cursor.close()
  
 #Establishes the connection to SQL database    
 def create_connection():
